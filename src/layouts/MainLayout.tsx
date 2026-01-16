@@ -2,6 +2,7 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import ChatWidget from '../components/ChatWidget';
 
 const MainLayout: React.FC = () => {
   return (
@@ -13,6 +14,7 @@ const MainLayout: React.FC = () => {
       <div className="relative z-[60]">
         <Footer />
       </div>
+      <ChatWidget />
     </div>
   );
 };
