@@ -22,25 +22,24 @@ const Header: React.FC = () => {
   return (
     <>
       <header className="absolute top-0 left-0 right-0 z-[100] px-8 lg:py-5 md:px-20 pointer-events-none">
-        <div className="max-w-[1600px] mx-auto flex items-center justify-between pointer-events-auto">
-          <div className="flex items-center gap-3">
+        <div className="max-w-[1600px] mx-auto flex items-center justify-between pointer-events-none">
+          <div className="flex items-center gap-3 pointer-events-auto">
             <div className="flex flex-col items-center">
                <img src="/flytrails-logo.png" alt="Fly Trails Logo" className="w-48 h-24 object-contain drop-shadow-lg" />
             </div>
 
           </div>
         </div>
-
-        <DesktopNav 
-          desktopNavOpen={desktopNavOpen} 
-          setDesktopNavOpen={setDesktopNavOpen} 
-          hoveredItem={hoveredItem}
-          handleMouseEnter={handleMouseEnter}
-          handleMouseLeave={handleMouseLeave}
-          timeoutRef={timeoutRef}
-        />
-
       </header>
+
+      <DesktopNav 
+        desktopNavOpen={desktopNavOpen} 
+        setDesktopNavOpen={setDesktopNavOpen} 
+        hoveredItem={hoveredItem}
+        handleMouseEnter={handleMouseEnter}
+        handleMouseLeave={handleMouseLeave}
+        timeoutRef={timeoutRef}
+      />
 
       <MobileMenu mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
     </>

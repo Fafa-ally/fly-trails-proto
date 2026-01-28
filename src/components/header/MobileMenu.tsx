@@ -54,10 +54,10 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ mobileOpen, setMobileOpen }) =>
 
                     {/* Main Nav Links */}
                     <nav className="flex flex-col gap-6">
-                        {["SAFARIS", "DESTINATIONS", "OUR STORY", "JOURNAL"].map((item, i) => (
+                        {["HOME", "SAFARIS", "DESTINATIONS", "OUR STORY", "JOURNAL", "MEMBERSHIP"].map((item, i) => (
                         <div key={item} className="group relative overflow-hidden md:py-1">
                             <a 
-                                href="#" 
+                                href={item === "HOME" ? "/" : item === "MEMBERSHIP" ? "/membership" : "#"}
                                 className={`flex items-baseline gap-4 text-[#222] hover:text-[#f29100] transition-colors transform ${mobileOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
                                 style={{ transitionDelay: `${150 + i * 100}ms`, transitionDuration: '0.8s' }}
                                 onClick={() => setMobileOpen(false)}

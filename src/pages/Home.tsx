@@ -8,6 +8,7 @@ import Destinations from '../components/Destinations';
 import TravelStories from '../components/TravelStories';
 import Reviews from '../components/Reviews';
 import Newsletter from '../components/Newsletter';
+import FollowCarousel from '../components/FollowCarousel';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 const Home: React.FC = () => {
@@ -42,6 +43,7 @@ const Home: React.FC = () => {
       <div className="relative z-[30]"><TravelStories /></div>
       <div className="relative z-[40]"><Reviews /></div>
       <div className="relative z-[50]"><Newsletter /></div>
+      <div className="relative z-[60]"><FollowCarousel /></div>
     </>
   );
 };

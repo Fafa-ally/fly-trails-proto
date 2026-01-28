@@ -50,19 +50,19 @@ const menuItems = {
       "Careers"
     ]
   },
-  "JOURNAL": {
+  "MEMBERSHIP": {
     featured: {
-      title: "Travel Logs",
-      image: "https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?q=80&w=1887",
-      desc: "Expert insights, photography tips, and tales."
+      title: "The Travelers' Circle",
+      image: "/membership/prestige-platinum.jpg",
+      desc: "Unlock a world of exclusive privileges and curated experiences."
     },
     links: [
-      "Safari Guides",
-      "Photography Tips",
-      "Cultural Insights",
-      "Wildlife Diaries",
-      "Travel News",
-      "Guest Stories"
+      "Explorer Tier",
+      "Adventure Elite Tier",
+      "Prestige Platinum",
+      "Member Benefits",
+      "Join the Circle",
+      "Member Stories"
     ]
   }
 };
@@ -88,7 +88,7 @@ const DesktopNav: React.FC<DesktopNavProps> = ({
     <>
         {/* Desktop Sticky Nav Container */}
         <div 
-            className={`hidden lg:block fixed top-0 right-0 h-20 w-[65%] transition-all duration-700 ease-[cubic-bezier(0.87,0,0.13,1)] z-[100] ${desktopNavOpen ? 'translate-x-0 opacity-100' : 'translate-x-[20%] opacity-0 pointer-events-none'}`}
+            className={`hidden lg:block fixed top-0 right-0 h-20 w-[65%] transition-all duration-700 ease-[cubic-bezier(0.87,0,0.13,1)] z-[150] ${desktopNavOpen ? 'translate-x-0 opacity-100 pointer-events-auto' : 'translate-x-[20%] opacity-0 pointer-events-none'}`}
         >
             {/* SVG Background */}
             <div className="absolute inset-0 w-full h-full pointer-events-none filter drop-shadow-sm">
@@ -98,27 +98,34 @@ const DesktopNav: React.FC<DesktopNavProps> = ({
             </div>
 
             {/* Links */}
-            <nav className="relative h-full flex items-center justify-end pr-12 md:pr-24 gap-8 md:gap-12 pointer-events-auto">
+            <nav className="relative h-full flex items-center justify-end pr-24 gap-6 md:gap-10 pointer-events-none">
+              <div className="relative group pointer-events-auto">
+                  <a href="/" className="text-[#3c4a3e] text-[11px] md:text-[13px] font-bold uppercase tracking-widest hover:text-[#f29100] transition-colors py-6">
+                  HOME
+                  </a>
+                  <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-[#f29100] transition-transform duration-300 origin-left scale-x-0 group-hover:scale-x-100"></span>
+              </div>
+
               {Object.keys(menuItems).map((item) => (
-                <div key={item} className="relative group" 
+                <div key={item} className="relative group pointer-events-auto" 
                      onMouseEnter={() => handleMouseEnter(item)}
                      onMouseLeave={handleMouseLeave}>
-                    <a href="#" className="text-[#3c4a3e] text-[11px] md:text-[13px] font-bold uppercase tracking-widest hover:text-[#f29100] transition-colors py-6">
+                    <a href={item === "MEMBERSHIP" ? "/membership" : "#"} className="text-[#3c4a3e] text-[11px] md:text-[13px] font-bold uppercase tracking-widest hover:text-[#f29100] transition-colors py-6">
                     {item}
                     </a>
                     <span className={`absolute -bottom-1 left-0 w-full h-[2px] bg-[#f29100] transition-transform duration-300 origin-left ${hoveredItem === item ? 'scale-x-100' : 'scale-x-0'}`}></span>
                 </div>
               ))}
-              
-              {/* Close Button (X) */}
-              <button 
-                onClick={() => setDesktopNavOpen(false)}
-                className="ml-4 p-2 hover:bg-slate-100 rounded-full transition-colors text-slate-400 hover:text-[#e11d48]"
-                title="Hide Menu"
-              >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-              </button>
             </nav>
+            
+            {/* Close Button (X) - Absolute Position */}
+            <button 
+              onClick={() => setDesktopNavOpen(false)}
+              className="absolute right-8 top-1/2 -translate-y-1/2 p-2 hover:bg-slate-100 rounded-full transition-colors text-slate-400 hover:text-[#e11d48] pointer-events-auto cursor-pointer"
+              title="Hide Menu"
+            >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
         </div>
 
         {/* Mega Menu Dropdown */}
@@ -138,14 +145,23 @@ const DesktopNav: React.FC<DesktopNavProps> = ({
                         </div>
                         
                         <ul className="grid grid-cols-2 gap-x-12 gap-y-3">
-                            {menuItems[hoveredItem as keyof typeof menuItems].links.map((link, idx) => (
+                            {menuItems[hoveredItem as keyof typeof menuItems].links.map((link, idx) => {
+                                let href = "#";
+                                if (hoveredItem === "MEMBERSHIP") {
+                                    if (link === "Explorer Tier") href = "/membership/explorer";
+                                    else if (link === "Adventure Elite Tier") href = "/membership/adventure-elite";
+                                    else if (link === "Prestige Platinum") href = "/membership/prestige-platinum";
+                                    else href = "/membership";
+                                }
+                                return (
                                 <li key={idx} className="group/item">
-                                    <a href="#" className="flex items-center justify-between py-2 group-hover/item:translate-x-2 transition-transform duration-300">
+                                    <a href={href} className="flex items-center justify-between py-2 group-hover/item:translate-x-2 transition-transform duration-300">
                                         <span className="text-[#4a5848] font-bold text-sm group-hover/item:text-[#f29100] transition-colors">{link}</span>
                                         <svg className="w-4 h-4 text-[#f29100] opacity-0 -translate-x-2 group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                                     </a>
                                 </li>
-                            ))}
+                                );
+                            })}
                         </ul>
 
                         <div className="mt-auto pt-10">
@@ -181,7 +197,7 @@ const DesktopNav: React.FC<DesktopNavProps> = ({
 
         {/* Desktop Re-Open Button (Visible when closed) */}
         <button 
-            className={`hidden lg:flex fixed top-8 right-12 z-[200] bg-white text-[#222] px-6 py-3 rounded-full shadow-xl items-center gap-3 transition-all duration-500 pointer-events-auto border border-slate-100 group ${!desktopNavOpen ? 'translate-x-0 opacity-100' : 'translate-x-20 opacity-0 pointer-events-none'}`}
+            className={`hidden lg:flex fixed top-8 right-12 z-[200] bg-white text-[#222] px-6 py-3 rounded-full shadow-xl items-center gap-3 transition-all duration-500 pointer-events-auto border border-slate-100 group ${!desktopNavOpen ? 'translate-x-0 opacity-100' : 'translate-x-20 opacity-0 pointer-events-none hidden'}`}
             onClick={() => setDesktopNavOpen(true)}
         >
              <span className="text-[10px] font-black uppercase tracking-[0.2em] group-hover:text-[#f29100] transition-colors">MENU</span>
